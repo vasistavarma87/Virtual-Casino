@@ -58,7 +58,7 @@ app.use('/api/games', auth, gamesRouter);
 initSocket(io, JWT_SECRET);
 
 // Start HTTP + WebSocket server
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log('====================================================');
   console.log(`🎰 Virtual Casino running at: http://localhost:${PORT}`);
   console.log('⚠️  SIMULATION ONLY — FAKE COINS ONLY — NO REAL MONEY');

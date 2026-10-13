@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Virtual Casino (Simulation)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+  <!-- Simulation Warning Banner -->
+  <div class="warning-banner">
+    ⚠️ <strong>SIMULATION ONLY:</strong> 100% Fake Coins. No real money or purchases.
+  </div>
+
+  <div class="container dashboard-container">
+    <!-- Top Navigation Header -->
+    <header class="dashboard-header">
+      <div class="brand">
+        <span class="logo-icon">🎰</span>
+        <div class="brand-text">
+          <h1>Virtual Casino</h1>
+          <span class="badge badge-sim">SIMULATION</span>
+        </div>
+      </div>
+
+      <div class="user-profile">
+        <div class="user-info">
+          <span class="user-greeting">Welcome, <strong id="userGreeting">Player</strong></span>
+          <div class="balance-card">
+            <span class="balance-label">Current Balance</span>
+            <span class="balance-amount" id="balanceDisplay">--</span>
+            <span class="balance-unit">Coins</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button id="bonusBtn" class="btn btn-gold btn-sm">
+            🎁 Daily Bonus (+200)
+          </button>
+          <button id="resetBtn" class="btn btn-outline btn-sm">
+            🔄 Reset to 1,000
+          </button>
+          <button id="logoutBtn" class="btn btn-secondary btn-sm">
+            🚪 Log Out
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Global Toast / Message Banner -->
+    <div id="gameMessage" class="toast-message d-none"></div>
+
+    <!-- Main Games Interface -->
+    <main class="games-wrapper">
+      <!-- Game Navigation Tabs -->
+      <nav class="game-tabs">
+        <button class="tab-btn active" data-tab="flip">🪙 Coin Flip</button>
+        <button class="tab-btn" data-tab="dice">🎲 Dice Roll</button>
+        <button class="tab-btn" data-tab="slots">🎰 Slot Machine</button>
+        <button class="tab-btn" data-tab="duel">⚔️ PvP Duel</button>
+      </nav>
+
+      <!-- ─── TAB 1: COIN FLIP ────────────────────────────────────────── -->
+      <section id="tab-flip" class="game-panel active">
+        <div class="panel-header">
+          <h2>🪙 Coin Flip</h2>
+          <span class="edge-tag">Win pays 1.9x &bull; 5% House Edge</span>
+        </div>
+
+        <div class="game-arena">
+          <div class="coin-stage">
+            <div id="coinTossWrapper" class="coin-toss-wrapper">
+              <div id="coinVisual" class="coin-3d is-heads" title="Dragon Gold Coin (Tap to Flip)">
+                <div class="coin-face coin-front">
+                  <img src="heads.png?v=3" alt="Heads (Dragon Head)">
+                </div>
+                <div class="coin-face coin-back">
+                  <img src="tails.png?v=3" alt="Tails (Dragon Serpent)">
+                </div>
+              </div>
+            </div>
+            <div id="coinSideBadge" class="coin-side-badge">Showing: HEADS (Dragon)</div>
+          </div>
+
+          <form id="flipForm" class="bet-controls">
+            <div class="form-row">
+              <label>Choose Side:</label>
+              <div class="radio-cards">
+                <label class="radio-card">
+                  <input type="radio" name="flipChoice" value="heads" checked>
+                  <span class="coin-choice-btn">
+                    <img src="heads.png?v=2" alt="Heads" class="choice-thumbnail">
+                    <strong>Heads</strong>
+                  </span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="flipChoice" value="tails">
+                  <span class="coin-choice-btn">
+                    <img src="tails.png?v=2" alt="Tails" class="choice-thumbnail">
+                    <strong>Tails</strong>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="flipBet">Bet Amount (Coins):</label>
+              <div class="bet-input-wrap">
+                <input type="number" id="flipBet" class="form-input" min="1" value="25" required>
+                <div class="quick-bets">
+                  <button type="button" class="btn-chip" data-target="flipBet" data-val="10">10</button>
+                  <button type="button" class="btn-chip" data-target="flipBet" data-val="50">50</button>
+                  <button type="button" class="btn-chip" data-target="flipBet" data-val="100">100</button>
+                  <button type="button" class="btn-chip btn-max" data-target="flipBet">Max</button>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" id="flipSubmitBtn" class="btn btn-primary btn-large btn-block">
+              Flip Coin
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ─── TAB 2: DICE ROLL ────────────────────────────────────────── -->
+      <section id="tab-dice" class="game-panel">
+        <div class="panel-header">
+          <h2>🎲 Dice Roll</h2>
+          <span class="edge-tag">Pick 1-6 &bull; Win pays 5x &bull; ~16.7% House Edge</span>
+        </div>
+
+        <div class="game-arena">
+          <div class="die-stage">
+            <div id="diceVisual" class="die-visual">🎲</div>
+          </div>
+
+          <form id="diceForm" class="bet-controls">
+            <div class="form-row">
+              <label>Pick Your Lucky Number:</label>
+              <div class="dice-selector">
+                <label class="dice-option"><input type="radio" name="diceChoice" value="1" checked><span>1</span></label>
+                <label class="dice-option"><input type="radio" name="diceChoice" value="2"><span>2</span></label>
+                <label class="dice-option"><input type="radio" name="diceChoice" value="3"><span>3</span></label>
+                <label class="dice-option"><input type="radio" name="diceChoice" value="4"><span>4</span></label>
+                <label class="dice-option"><input type="radio" name="diceChoice" value="5"><span>5</span></label>
+                <label class="dice-option"><input type="radio" name="diceChoice" value="6"><span>6</span></label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="diceBet">Bet Amount (Coins):</label>
+              <div class="bet-input-wrap">
+                <input type="number" id="diceBet" class="form-input" min="1" value="25" required>
+                <div class="quick-bets">
+                  <button type="button" class="btn-chip" data-target="diceBet" data-val="10">10</button>
+                  <button type="button" class="btn-chip" data-target="diceBet" data-val="50">50</button>
+                  <button type="button" class="btn-chip" data-target="diceBet" data-val="100">100</button>
+                  <button type="button" class="btn-chip btn-max" data-target="diceBet">Max</button>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" id="diceSubmitBtn" class="btn btn-primary btn-large btn-block">
+              Roll Dice
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ─── TAB 3: SLOT MACHINE ─────────────────────────────────────── -->
+      <section id="tab-slots" class="game-panel">
+        <div class="panel-header">
+          <h2>🎰 Slot Machine</h2>
+          <span class="edge-tag">3 Match = 10x &bull; 2 Match = 2x &bull; ~6% House Edge</span>
+        </div>
+
+        <div class="game-arena">
+          <div class="slot-machine">
+            <div class="slot-display">
+              <div id="reel1" class="reel">🍒</div>
+              <div id="reel2" class="reel">🍋</div>
+              <div id="reel3" class="reel">7️⃣</div>
+            </div>
+            <div class="payout-legend">
+              <span>🍒🍒🍒 3-Match: <strong>10x Payout</strong></span>
+              <span>🍒🍒🍋 2-Match: <strong>2x Payout</strong></span>
+            </div>
+          </div>
+
+          <form id="slotsForm" class="bet-controls">
+            <div class="form-row">
+              <label for="slotsBet">Bet Amount (Coins):</label>
+              <div class="bet-input-wrap">
+                <input type="number" id="slotsBet" class="form-input" min="1" value="25" required>
+                <div class="quick-bets">
+                  <button type="button" class="btn-chip" data-target="slotsBet" data-val="10">10</button>
+                  <button type="button" class="btn-chip" data-target="slotsBet" data-val="50">50</button>
+                  <button type="button" class="btn-chip" data-target="slotsBet" data-val="100">100</button>
+                  <button type="button" class="btn-chip btn-max" data-target="slotsBet">Max</button>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" id="slotsSubmitBtn" class="btn btn-primary btn-large btn-block">
+              Spin Slots
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ─── TAB 4: REAL-TIME MULTIPLAYER PVP COIN FLIP DUEL ─────────── -->
+      <section id="tab-duel" class="game-panel">
+        <div class="panel-header">
+          <h2>⚔️ Player vs Player Coin Flip Duel</h2>
+          <span class="edge-tag">Real-Time 1v1 &bull; 5% House Edge &bull; Winner Takes 1.9x</span>
+        </div>
+
+        <div class="duel-container">
+          <!-- 1. Lobby View: Create or Join -->
+          <div id="duelLobbyView" class="duel-lobby-grid">
+            <!-- Create Room Box -->
+            <div class="card duel-card">
+              <div class="duel-card-title">
+                <span class="card-icon">➕</span>
+                <h3>Create a Duel Room</h3>
+              </div>
+              <p class="text-muted text-sm">Host a duel with your chosen bet. Share the 5-letter room code with a friend on any device!</p>
+
+              <form id="createDuelForm" class="bet-controls">
+                <div class="form-row">
+                  <label for="createDuelBet">Duel Bet (Coins):</label>
+                  <div class="bet-input-wrap">
+                    <input type="number" id="createDuelBet" class="form-input" min="1" value="50" required>
+                    <div class="quick-bets">
+                      <button type="button" class="btn-chip" data-target="createDuelBet" data-val="25">25</button>
+                      <button type="button" class="btn-chip" data-target="createDuelBet" data-val="50">50</button>
+                      <button type="button" class="btn-chip" data-target="createDuelBet" data-val="100">100</button>
+                      <button type="button" class="btn-chip btn-max" data-target="createDuelBet">Max</button>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" id="createDuelSubmitBtn" class="btn btn-primary btn-large btn-block">
+                  ⚔️ Create Duel
+                </button>
+              </form>
+            </div>
+
+            <!-- Join Room Box -->
+            <div class="card duel-card">
+              <div class="duel-card-title">
+                <span class="card-icon">🔑</span>
+                <h3>Join a Duel Room</h3>
+              </div>
+              <p class="text-muted text-sm">Enter the 5-character code created by another player to join their live duel instantly.</p>
+
+              <form id="joinDuelForm" class="bet-controls">
+                <div class="form-row">
+                  <label for="joinRoomCode">Enter 5-Letter Room Code:</label>
+                  <input type="text" id="joinRoomCode" class="form-input code-input" placeholder="e.g. XY7K2" maxlength="5" autocomplete="off" required>
+                </div>
+
+                <button type="submit" id="joinDuelSubmitBtn" class="btn btn-gold btn-large btn-block">
+                  🚪 Join Duel
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- 2. Waiting Room View: Host waiting for guest -->
+          <div id="duelWaitingView" class="card duel-card waiting-card d-none">
+            <div class="waiting-header">
+              <div class="spinner-pulse"></div>
+              <h3>Waiting for Opponent to Join...</h3>
+            </div>
+            <p class="text-muted">Share this room code with your opponent. As soon as they enter it, both bets lock and the duel begins!</p>
+
+            <div class="room-code-badge">
+              <span id="displayRoomCode" class="room-code-text">-----</span>
+              <button id="copyCodeBtn" class="btn btn-outline btn-sm" type="button">📋 Copy Code</button>
+            </div>
+
+            <div class="duel-meta-row">
+              <span>Bet Amount: <strong id="waitingBetDisplay" class="text-gold">50</strong> Coins</span>
+              <span>Expires in: <strong id="waitingExpiryCounter">60</strong>s</span>
+            </div>
+
+            <button id="cancelDuelBtn" class="btn btn-secondary btn-block" type="button">
+              ❌ Cancel Duel
+            </button>
+          </div>
+
+          <!-- 3. Active Duel Arena: Countdown & Real-Time Flip -->
+          <div id="duelArenaView" class="card duel-card arena-card d-none">
+            <div class="arena-matchup">
+              <!-- Player 1 (Host) -->
+              <div class="player-card host-box">
+                <div class="player-avatar">👑</div>
+                <div class="player-name" id="arenaHostName">Host</div>
+                <div class="player-side side-heads">
+                  <img src="heads.png?v=3" alt="Heads" class="mini-coin">
+                  <span>HEADS</span>
+                </div>
+              </div>
+
+              <!-- VS Divider & Pot -->
+              <div class="arena-center">
+                <div class="vs-text">VS</div>
+                <div class="pot-display">
+                  <span class="pot-label">WINNER TAKES</span>
+                  <span class="pot-amount" id="arenaPotAmount">95 Coins</span>
+                  <span class="edge-note">(5% House Edge)</span>
+                </div>
+              </div>
+
+              <!-- Player 2 (Guest) -->
+              <div class="player-card guest-box">
+                <div class="player-avatar">⚔️</div>
+                <div class="player-name" id="arenaGuestName">Guest</div>
+                <div class="player-side side-tails">
+                  <img src="tails.png?v=3" alt="Tails" class="mini-coin">
+                  <span>TAILS</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Central Arena Stage (Countdown and 3D Coin) -->
+            <div class="duel-stage">
+              <!-- Big Animated Countdown -->
+              <div id="duelCountdown" class="countdown-badge">3</div>
+
+              <!-- Duel Coin Visual -->
+              <div id="duelCoinWrapper" class="coin-toss-wrapper d-none">
+                <div id="duelCoinVisual" class="coin-3d is-heads">
+                  <div class="coin-face coin-front">
+                    <img src="heads.png?v=3" alt="Heads (Dragon Head)">
+                  </div>
+                  <div class="coin-face coin-back">
+                    <img src="tails.png?v=3" alt="Tails (Dragon Serpent)">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Status Text -->
+              <div id="duelStatusText" class="arena-status-text">Opponent found! Bets locked. Flipping soon...</div>
+            </div>
+
+            <!-- Duel Result Announcement Banner -->
+            <div id="duelResultBanner" class="duel-result-banner d-none"></div>
+
+            <!-- Arena Back / Reset Action -->
+            <div id="duelArenaActions" class="arena-actions d-none">
+              <button id="leaveDuelBtn" class="btn btn-primary btn-block" type="button">
+                🔄 Return to Duel Lobby
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Data Section: History & Leaderboard -->
+    <div class="stats-grid">
+      <!-- Recent Transactions -->
+      <section class="card stats-card">
+        <div class="card-header">
+          <h3>📜 Recent Transactions</h3>
+          <button id="refreshHistoryBtn" class="btn-icon" title="Refresh history">↻</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Game</th>
+                <th>Result</th>
+                <th>Coins</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody">
+              <tr><td colspan="4" class="text-center text-muted">No transactions yet. Place a bet!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Top 10 Leaderboard -->
+      <section class="card stats-card">
+        <div class="card-header">
+          <h3>🏆 Top 10 Leaderboard</h3>
+          <button id="refreshLeaderboardBtn" class="btn-icon" title="Refresh leaderboard">↻</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Balance</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardTableBody">
+              <tr><td colspan="3" class="text-center text-muted">Loading leaderboard...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Socket.IO client library (served automatically by Socket.IO server) -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Client-side application script -->
+  <script src="app.js"></script>
+</body>
+</html>

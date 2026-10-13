@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — Virtual Casino (Simulation)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+  <!-- Simulation Warning Banner -->
+  <div class="warning-banner">
+    ⚠️ <strong>SIMULATION ONLY:</strong> 100% Fake Coins. No real money or purchases.
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="logo">🎰 Virtual Casino</div>
+      <h2>Welcome Back</h2>
+      <p class="text-muted">Enter your credentials to enter the simulation</p>
+    </div>
+
+    <!-- Alert / Error display box -->
+    <div id="authAlert" class="alert d-none"></div>
+
+    <form id="loginForm" class="auth-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-input"
+          placeholder="e.g. lucky_player"
+          required
+          autocomplete="username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-input"
+          placeholder="••••••••"
+          required
+          autocomplete="current-password"
+        />
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn btn-primary btn-block">
+        Log In
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Need an account? <a href="signup.html">Create one here</a></p>
+      <p><a href="index.html" class="text-muted">← Back to Home</a></p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

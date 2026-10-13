@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "20.x"
+  },
   "name": "virtual-casino",
   "version": "1.0.0",
   "description": "Virtual Casino Simulation - Fake Coins Only",
